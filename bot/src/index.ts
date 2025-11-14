@@ -1,16 +1,17 @@
-import { log } from 'node:console';
+import { Client, GatewayIntentBits } from 'discord.js';
 import Config from './config';
-import { Client, GatewayIntentBits, Events } from 'discord.js';
+import { registerEvents } from './handlers/eventRegistry';
 
-const client = new Client({
+export const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
     GatewayIntentBits.GuildMembers,
+    GatewayIntentBits.GuildModeration,
     GatewayIntentBits.GuildMessages,
     GatewayIntentBits.MessageContent,
   ],
 });
 
-client.once(Events.ClientReady, () => log(`${client.user?.tag} is Online!`));
+registerEvents(client);
 
 client.login(Config.DISCORD_TOKEN);
