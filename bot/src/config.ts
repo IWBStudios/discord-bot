@@ -2,12 +2,12 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const envVars = {
+  NODE_ENV: process.env.NODE_ENV || 'development',
   CLIENT_ID: process.env.CLIENT_ID,
   GUILD_ID: process.env.GUILD_ID,
   DISCORD_TOKEN: process.env.DISCORD_TOKEN,
   ACTION_LOG_CHANNEL: process.env.ACTION_LOG_CHANNEL,
   DB_URI: process.env.DB_URI,
-  NODE_ENV: process.env.NODE_ENV || 'development',
 };
 
 const missingVars = Object.entries(envVars)
@@ -19,21 +19,21 @@ if (missingVars.length > 0) {
 }
 
 interface Env {
+  NODE_ENV: string;
   CLIENT_ID: string;
   GUILD_ID: string;
   DISCORD_TOKEN: string;
   ACTION_LOG_CHANNEL: string;
   DB_URI: string;
-  NODE_ENV: string;
 }
 
 const Config: Env = {
+  NODE_ENV: envVars.NODE_ENV,
   CLIENT_ID: envVars.CLIENT_ID!,
   GUILD_ID: envVars.GUILD_ID!,
   DISCORD_TOKEN: envVars.DISCORD_TOKEN!,
   ACTION_LOG_CHANNEL: envVars.ACTION_LOG_CHANNEL!,
   DB_URI: envVars.DB_URI!,
-  NODE_ENV: envVars.NODE_ENV,
 };
 
 export default Config;
