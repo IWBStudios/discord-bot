@@ -1,6 +1,6 @@
 {
   "name": "discord-bot",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "A Discord Bot",
   "scripts": {
     "build": "bun run tsc",
