@@ -2,7 +2,7 @@ module.exports = {
   apps: [
     {
       name: 'discord-bot',
-      script: './dist/index.js', // skompilowany TS do JS
+      script: './dist/index.js',
       instances: 1,
       autorestart: true,
       watch: false,
