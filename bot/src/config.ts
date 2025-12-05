@@ -7,7 +7,11 @@ const envVars = {
   GUILD_ID: process.env.GUILD_ID,
   DISCORD_TOKEN: process.env.DISCORD_TOKEN,
   ACTION_LOG_CHANNEL: process.env.ACTION_LOG_CHANNEL,
-  DB_URI: process.env.DB_URI,
+  DB_USER: process.env.DB_USER,
+  DB_PASSWORD: process.env.DB_PASSWORD,
+  DB_HOST: process.env.DB_HOST ?? 'localhost',
+  DB_PORT: Number(process.env.DB_PORT ?? 3306),
+  DB_NAME: process.env.DB_NAME,
 };
 
 const missingVars = Object.entries(envVars)
@@ -24,7 +28,11 @@ interface Env {
   GUILD_ID: string;
   DISCORD_TOKEN: string;
   ACTION_LOG_CHANNEL: string;
-  DB_URI: string;
+  DB_USER: string;
+  DB_PASSWORD: string;
+  DB_HOST: string;
+  DB_PORT: number;
+  DB_NAME: string;
 }
 
 const Config: Env = {
@@ -33,7 +41,11 @@ const Config: Env = {
   GUILD_ID: envVars.GUILD_ID!,
   DISCORD_TOKEN: envVars.DISCORD_TOKEN!,
   ACTION_LOG_CHANNEL: envVars.ACTION_LOG_CHANNEL!,
-  DB_URI: envVars.DB_URI!,
+  DB_USER: envVars.DB_USER!,
+  DB_PASSWORD: envVars.DB_PASSWORD!,
+  DB_HOST: envVars.DB_HOST!,
+  DB_PORT: envVars.DB_PORT!,
+  DB_NAME: envVars.DB_NAME!,
 };
 
 export default Config;
