@@ -5,7 +5,7 @@ import { organizeCommandsByCategory } from '../utils/organizeCommands';
 // import { redeployCommands } from '../utils/redeployCommands';
 import { commands } from './commandRegistry';
 
-export const deployCommands = async (client: Client) => {
+export async function deployCommands(client: Client) {
   const commandsData = Array.from(commands.values()).map((c) => c.data.toJSON());
 
   try {
@@ -14,7 +14,7 @@ export const deployCommands = async (client: Client) => {
   } catch (error) {
     logger.error('Failed to register commands:', error);
   }
-};
+}
 
 async function findAndDeletePreviousEmbed(channel: TextChannel) {
   const messages = await channel.messages.fetch({ limit: 20 });
