@@ -12,7 +12,7 @@ const event: BotEvent<'clientReady'> = {
       activities: [
         {
           name: 'Under Development',
-          type: ActivityType.Custom,
+          type: ActivityType.Playing,
           state: 'Something good is cooking...',
         },
       ],
