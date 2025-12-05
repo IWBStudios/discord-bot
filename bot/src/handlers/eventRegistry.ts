@@ -1,8 +1,8 @@
 import { Client } from 'discord.js';
 import fs from 'fs';
-import logger from 'node:console';
 import path from 'path';
 import type { BotEvent } from 'types/BotEvent';
+import logger from '../utils/logger';
 
 export const registerEvents = async (client: Client) => {
   const eventsDir = path.join(__dirname, '../events');

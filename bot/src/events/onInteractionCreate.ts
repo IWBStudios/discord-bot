@@ -1,7 +1,7 @@
 import { MessageFlags } from 'discord.js';
-import logger from 'node:console';
 import type { BotEvent } from 'types/BotEvent';
 import { commands } from '../handlers/commandRegistry';
+import logger from '../utils/logger';
 
 const event: BotEvent<'interactionCreate'> = {
   name: 'interactionCreate',
@@ -14,7 +14,7 @@ const event: BotEvent<'interactionCreate'> = {
     try {
       await command.run(interaction);
     } catch (error) {
-      logger.error(`Error executing command ${interaction.commandName}:`, error);
+      logger.error(error, `Error executing command ${interaction.commandName}:`);
 
       if (!interaction.replied && !interaction.deferred) {
         await interaction
@@ -23,7 +23,7 @@ const event: BotEvent<'interactionCreate'> = {
             flags: MessageFlags.Ephemeral,
           })
           .catch((err) => {
-            logger.error('Error sending error response:', err);
+            logger.error(err, 'Error sending error response:');
           });
       } else if (interaction.deferred) {
         await interaction
@@ -31,7 +31,7 @@ const event: BotEvent<'interactionCreate'> = {
             content: 'There was an error executing that command.',
           })
           .catch((err) => {
-            logger.error('Error editing error response:', err);
+            logger.error(err, 'Error editing error response:');
           });
       }
     }

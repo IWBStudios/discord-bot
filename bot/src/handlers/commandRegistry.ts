@@ -1,7 +1,7 @@
 import fs from 'fs';
-import logger from 'node:console';
 import path from 'path';
 import type { Command } from 'types/BotCommand';
+import logger from '../utils/logger';
 
 export const commands = new Map<string, Command>();
 

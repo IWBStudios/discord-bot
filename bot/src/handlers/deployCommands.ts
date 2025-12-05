@@ -1,18 +1,18 @@
 import { Client, EmbedBuilder, TextChannel } from 'discord.js';
-import logger from 'node:console';
 import Config from '../config';
+import logger from '../utils/logger';
 import { organizeCommandsByCategory } from '../utils/organizeCommands';
-// import { redeployCommands } from '../utils/redeployCommands';
+import { redeployCommands } from '../utils/redeployCommands';
 import { commands } from './commandRegistry';
 
 export async function deployCommands(client: Client) {
   const commandsData = Array.from(commands.values()).map((c) => c.data.toJSON());
 
   try {
-    // await redeployCommands(commandsData);
+    await redeployCommands(commandsData);
     await sendEmbed(client, commandsData.length);
   } catch (error) {
-    logger.error('Failed to register commands:', error);
+    logger.error(error, 'Failed to register commands:');
   }
 }
 
