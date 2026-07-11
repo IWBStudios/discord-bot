@@ -45,8 +45,8 @@ const event: BotEvent<'guildMemberRemove'> = {
       const channel = guild.channels.cache.get(Config.ACTION_LOG_CHANNEL) as TextChannel;
       if (channel) await channel.send({ embeds: [removeEmbed] });
 
-      await db.execute(
-        'INSERT INTO moderation_logs (target_id, target_tag, moderator_id, moderator_tag, action, reason, created_at) VALUES (?, ?, ?, ?, ?, ?, NOW())',
+      await db.query(
+        'INSERT INTO public.moderation_logs (target_id, target_tag, moderator_id, moderator_tag, action, reason, created_at) VALUES ($1, $2, $3, $4, $5, $6, NOW())',
         [targetUser.id, targetUser.tag, executorUser.id, executorUser.tag, 'kick', reason]
       );
     } catch (error) {

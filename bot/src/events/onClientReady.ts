@@ -1,12 +1,13 @@
 import { ActivityType } from 'discord.js';
 import type { BotEvent } from 'types/BotEvent';
 import { deployCommands } from '../handlers/deployCommands';
+import logger from '../utils/logger';
 
 const event: BotEvent<'clientReady'> = {
   name: 'clientReady',
   run: async (client) => {
     await deployCommands(client);
-    console.log(`Logged in as ${client.user?.tag}`);
+    logger.info(`Logged in as ${client.user?.tag}`);
 
     client.user?.setPresence({
       activities: [

@@ -1,14 +1,16 @@
-import mysql from 'mysql2/promise';
+import { Pool } from 'pg';
 import Config from '../config';
+import logger from '../utils/logger';
 
-export const db = mysql.createPool({
+export const db = new Pool({
   host: Config.DB_HOST,
   port: Config.DB_PORT,
   user: Config.DB_USER,
   password: Config.DB_PASSWORD,
   database: Config.DB_NAME,
-  waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0,
-  charset: 'utf8mb4',
+  max: 10,
+});
+
+db.on('error', (err) => {
+  logger.error(err, 'Unexpected PostgreSQL pool error');
 });

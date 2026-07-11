@@ -89,8 +89,8 @@ const command: Command = {
       const logChannel = interaction.guild.channels.cache.get(Config.ACTION_LOG_CHANNEL) as TextChannel;
       if (logChannel) await logChannel.send({ embeds: [embed] });
 
-      await db.execute(
-        'INSERT INTO moderation_logs (target_id, target_tag, moderator_id, moderator_tag, action, reason, created_at) VALUES (?, ?, ?, ?, ?, ?, NOW())',
+      await db.query(
+        'INSERT INTO public.moderation_logs (target_id, target_tag, moderator_id, moderator_tag, action, reason, created_at) VALUES ($1, $2, $3, $4, $5, $6, NOW())',
         [target.id, target.user.tag, interaction.user.id, interaction.user.tag, 'kick', reason]
       );
 
@@ -98,8 +98,8 @@ const command: Command = {
         content: `<@${target.id}> has been kicked successfully.`,
       });
     } catch (error) {
-      logger.error(error, 'Failed to kick member.');
-      interaction.editReply({ content: 'Failed to kick member.' });
+      logger.error({ err: error }, 'Failed to kick member.');
+      await interaction.editReply({ content: 'Failed to kick member.' });
     }
   },
 };
