@@ -1,7 +1,7 @@
 import { MessageFlags } from 'discord.js';
-import type { BotEvent } from 'types/BotEvent';
-import { commands } from '../handlers/commandRegistry';
-import logger from '../utils/logger';
+import { commands } from '../handlers/commandRegistry.js';
+import type { BotEvent } from '../types/BotEvent.js';
+import logger from '../utils/logger.js';
 
 const event: BotEvent<'interactionCreate'> = {
   name: 'interactionCreate',

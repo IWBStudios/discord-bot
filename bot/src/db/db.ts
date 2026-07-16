@@ -1,6 +1,6 @@
 import { Pool } from 'pg';
-import Config from '../config';
-import logger from '../utils/logger';
+import Config from '../config.js';
+import logger from '../utils/logger.js';
 
 export const db = new Pool({
   host: Config.DB_HOST,

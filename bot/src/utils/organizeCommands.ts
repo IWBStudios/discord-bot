@@ -1,4 +1,4 @@
-import type { Command } from 'types/BotCommand';
+import type { Command } from '../types/BotCommand.js';
 
 export function organizeCommandsByCategory(commands: Map<string, Command>) {
   const categorizedCommands = new Map<string, string[]>();

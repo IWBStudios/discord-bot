@@ -1,8 +1,8 @@
 import { AuditLogEvent, EmbedBuilder, Guild, GuildAuditLogsEntry, PartialUser, TextChannel, User } from 'discord.js';
-import type { BotEvent } from 'types/BotEvent';
-import Config from '../config';
-import { db } from '../db/db';
-import logger from '../utils/logger';
+import Config from '../config.js';
+import { db } from '../db/db.js';
+import type { BotEvent } from '../types/BotEvent.js';
+import logger from '../utils/logger.js';
 
 const event: BotEvent<'guildMemberRemove'> = {
   name: 'guildMemberRemove',

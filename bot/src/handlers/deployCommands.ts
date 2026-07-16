@@ -1,9 +1,9 @@
 import { Client, EmbedBuilder, TextChannel } from 'discord.js';
-import Config from '../config';
-import logger from '../utils/logger';
-import { organizeCommandsByCategory } from '../utils/organizeCommands';
-import { redeployCommands } from '../utils/redeployCommands';
-import { commands } from './commandRegistry';
+import Config from '../config.js';
+import logger from '../utils/logger.js';
+import { organizeCommandsByCategory } from '../utils/organizeCommands.js';
+import { redeployCommands } from '../utils/redeployCommands.js';
+import { commands } from './commandRegistry.js';
 
 export async function deployCommands(client: Client) {
   const commandsData = Array.from(commands.values()).map((c) => c.data.toJSON());
@@ -24,7 +24,7 @@ async function findAndDeletePreviousEmbed(channel: TextChannel) {
     if (!m.embeds.length) return false;
 
     const emb = m.embeds[0];
-    return emb.title === '🤖 Bot Started';
+    return emb?.title === '🤖 Bot Started';
   });
 
   if (target) {
@@ -49,7 +49,7 @@ async function sendEmbed(client: Client, commandsLenght: number) {
     .setTimestamp()
     .setFooter({
       text: `${Config.NODE_ENV.charAt(0).toUpperCase() + Config.NODE_ENV.slice(1)} Mode • Bot Initialization`,
-      iconURL: client.user?.displayAvatarURL({ extension: 'webp', size: 32 }) || undefined,
+      iconURL: client.user?.displayAvatarURL({ extension: 'webp', size: 32 }) as string,
     });
 
   await logChannel.send({ embeds: [embed] });

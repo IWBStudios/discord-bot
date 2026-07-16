@@ -1,7 +1,7 @@
 import { ActivityType } from 'discord.js';
-import type { BotEvent } from 'types/BotEvent';
-import { deployCommands } from '../handlers/deployCommands';
-import logger from '../utils/logger';
+import { deployCommands } from '../handlers/deployCommands.js';
+import type { BotEvent } from '../types/BotEvent.js';
+import logger from '../utils/logger.js';
 
 const event: BotEvent<'clientReady'> = {
   name: 'clientReady',

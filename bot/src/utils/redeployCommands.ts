@@ -1,7 +1,7 @@
 import { REST, RESTPostAPIChatInputApplicationCommandsJSONBody, Routes } from 'discord.js';
-import Config from '../config';
-import { commands } from '../handlers/commandRegistry';
-import logger from './logger';
+import Config from '../config.js';
+import { commands } from '../handlers/commandRegistry.js';
+import logger from './logger.js';
 
 const api = new REST({ version: '10' }).setToken(Config.DISCORD_TOKEN);
 

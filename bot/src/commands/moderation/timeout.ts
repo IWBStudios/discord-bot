@@ -6,10 +6,10 @@ import {
   SlashCommandBuilder,
   TextChannel,
 } from 'discord.js';
-import { Command } from 'types/BotCommand';
-import Config from '../../config';
-import { db } from '../../db/db';
-import logger from '../../utils/logger';
+import Config from '../../config.js';
+import { db } from '../../db/db.js';
+import { Command } from '../../types/BotCommand.js';
+import logger from '../../utils/logger.js';
 
 const command: Command = {
   category: 'Moderation',
