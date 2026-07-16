@@ -28,11 +28,11 @@ async function loadCommands(directory: string, isRoot = true): Promise<number> {
       const commandModule = await import(commandPath);
       const command: Command = commandModule.default;
 
-      if (!command.category) {
-        command.category = categoryName;
-      }
+      commands.set(command.data.name, {
+        ...command,
+        category: command.category ?? categoryName,
+      });
 
-      commands.set(command.data.name, command);
       logger.debug(`Loading command: ${command.data.name} (${command.category})`);
       commandCount++;
     }
