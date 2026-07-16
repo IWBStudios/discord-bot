@@ -2,28 +2,28 @@
   "name": "discord-bot",
   "version": "0.1.2",
   "description": "A Discord Bot",
+  "type": "module",
   "scripts": {
-    "build": "pnpm run tsc",
-    "start": "pnpm run dist/index.js",
+    "build": "pnpm run typecheck && npx tsc",
+    "start": "node dist/index.js",
     "start:pm2": "pm2 start ecosystem.config.js --env production",
     "start:prod": "pnpm run build && pnpm run start:pm2",
-    "dev": "nodemon -L",
-    "format": "prettier --write src"
+    "dev": "tsx watch src/index.ts",
+    "format": "prettier --write src",
+    "typecheck": "tsc"
   },
   "devDependencies": {
-    "@types/node": "^24.13.3",
-    "@types/node-fetch": "^2.6.13",
+    "@types/node": "^26.1.1",
     "@types/pg": "^8.20.0",
-    "nodemon": "^3.1.14",
     "prettier": "^3.9.5",
     "prettier-plugin-organize-imports": "^4.3.0",
-    "ts-node": "^10.9.2",
+    "tsx": "^4.23.1",
     "typescript": "^5.9.3"
   },
   "dependencies": {
-    "discord.js": "^14.26.5",
+    "discord.js": "^14.27.0",
     "dotenv": "^17.4.2",
-    "pg": "^8.14.0",
+    "pg": "^8.22.0",
     "pino": "^10.3.1",
     "pino-pretty": "^13.1.3"
   }
