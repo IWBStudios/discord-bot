@@ -29,7 +29,6 @@ async function loadCommands(directory: string, isRoot = true): Promise<number> {
       const commandPath = path.join(categoryPath, commandFile);
       const commandModule = await import(pathToFileURL(commandPath).href);
 
-      console.log(commandFile, commandModule);
       const command: Command = commandModule.default?.default ?? commandModule.default;
 
       if (!command.data || typeof command.run !== 'function') {
