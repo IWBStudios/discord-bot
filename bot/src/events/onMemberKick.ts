@@ -1,12 +1,12 @@
-import { AuditLogEvent, EmbedBuilder, Guild, GuildAuditLogsEntry, TextChannel, User } from 'discord.js';
-import type { PartialUser } from 'discord.js';
-import Config from '../config.js';
-import { db } from '../db/db.js';
-import type { BotEvent } from '../types/BotEvent.js';
-import logger from '../utils/logger.js';
+import { AuditLogEvent, EmbedBuilder, Guild, GuildAuditLogsEntry, TextChannel, User } from "discord.js";
+import type { PartialUser } from "discord.js";
+import Config from "../config.js";
+import { db } from "../db/db.js";
+import type { BotEvent } from "../types/BotEvent.js";
+import logger from "../utils/logger.js";
 
-const event: BotEvent<'guildMemberRemove'> = {
-  name: 'guildMemberRemove',
+const event: BotEvent<"guildMemberRemove"> = {
+  name: "guildMemberRemove",
   run: async (_client, member) => {
     try {
       const guild: Guild = member.guild;
@@ -24,7 +24,7 @@ const event: BotEvent<'guildMemberRemove'> = {
       const targetId = getUserId(target);
 
       if (!executorId || !targetId || targetId !== member.id) {
-        logger.info('Executor or target missing, or not matching member.');
+        logger.info("Executor or target missing, or not matching member.");
         return;
       }
 
@@ -34,11 +34,14 @@ const event: BotEvent<'guildMemberRemove'> = {
       const targetUser = await guild.client.users.fetch(targetId);
 
       const removeEmbed = new EmbedBuilder()
-        .setColor('#ea580c')
-        .setTitle('Member Kicked')
+        .setColor("#ea580c")
+        .setTitle("Member Kicked")
         .setDescription(`<@${targetUser.id}> was **kicked** by <@${executorUser.id}>.`)
-        .addFields({ name: 'Reason', value: reason || 'No reason provided.' })
-        .setAuthor({ name: targetUser.username || 'Unknown', iconURL: targetUser.displayAvatarURL() })
+        .addFields({ name: "Reason", value: reason || "No reason provided." })
+        .setAuthor({
+          name: targetUser.username || "Unknown",
+          iconURL: targetUser.displayAvatarURL(),
+        })
         .setTimestamp(createdAt)
         .setFooter({ text: `Member ID: ${targetUser.id}` })
         .setThumbnail(targetUser.displayAvatarURL());
@@ -47,21 +50,21 @@ const event: BotEvent<'guildMemberRemove'> = {
       if (channel) await channel.send({ embeds: [removeEmbed] });
 
       await db.query(
-        'INSERT INTO public.moderation_logs (target_id, target_tag, moderator_id, moderator_tag, action, reason, created_at) VALUES ($1, $2, $3, $4, $5, $6, NOW())',
-        [targetUser.id, targetUser.tag, executorUser.id, executorUser.tag, 'kick', reason]
+        "INSERT INTO public.moderation_logs (target_id, target_tag, moderator_id, moderator_tag, action, reason, created_at) VALUES ($1, $2, $3, $4, $5, $6, NOW())",
+        [targetUser.id, targetUser.tag, executorUser.id, executorUser.tag, "kick", reason],
       );
     } catch (error) {
-      logger.error(error, 'Failed to process member kick audit log.');
+      logger.error(error, "Failed to process member kick audit log.");
     }
   },
 };
 
 function getUserId(user: unknown): string | null {
   if (!user) return null;
-  if (typeof user === 'string') return user;
+  if (typeof user === "string") return user;
 
   // if object and property id exists
-  if (typeof user === 'object' && 'id' in user && typeof (user as any).id === 'string') {
+  if (typeof user === "object" && "id" in user && typeof (user as any).id === "string") {
     // additionaly make sure it is User or PartialUser
     if ((user as User | PartialUser).username !== undefined || (user as User | PartialUser).tag !== undefined) {
       return (user as User | PartialUser).id;

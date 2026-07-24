@@ -1,30 +1,30 @@
-import { REST, Routes } from 'discord.js';
-import type { RESTPostAPIChatInputApplicationCommandsJSONBody } from 'discord.js';
-import Config from '../config.js';
-import { commands } from '../handlers/commandRegistry.js';
-import logger from './logger.js';
+import { REST, Routes } from "discord.js";
+import type { RESTPostAPIChatInputApplicationCommandsJSONBody } from "discord.js";
+import Config from "../config.js";
+import { commands } from "../handlers/commandRegistry.js";
+import logger from "./logger.js";
 
-const api = new REST({ version: '10' }).setToken(Config.DISCORD_TOKEN);
+const api = new REST({ version: "10" }).setToken(Config.DISCORD_TOKEN);
 
 export async function redeployCommands(data: RESTPostAPIChatInputApplicationCommandsJSONBody[]) {
-  logger.info('Clearing existing commands...');
+  logger.info("Clearing existing commands...");
 
-  if (Config.NODE_ENV === 'development') {
+  if (Config.NODE_ENV === "development") {
     await api.put(Routes.applicationGuildCommands(Config.CLIENT_ID, Config.GUILD_ID), { body: [] });
-    logger.debug('Cleared guild commands');
+    logger.debug("Cleared guild commands");
 
     await api.put(Routes.applicationCommands(Config.CLIENT_ID), { body: [] });
-    logger.debug('Cleared global commands');
+    logger.debug("Cleared global commands");
 
-    logger.debug('Development mode: Registering guild commands...');
+    logger.debug("Development mode: Registering guild commands...");
     await api.put(Routes.applicationGuildCommands(Config.CLIENT_ID, Config.GUILD_ID), { body: data });
     logger.debug(`Successfully registered ${data.length} guild commands`);
   } else {
-    logger.info('Clearing existing commands...');
+    logger.info("Clearing existing commands...");
     await api.put(Routes.applicationGuildCommands(Config.CLIENT_ID, Config.GUILD_ID), { body: [] });
-    logger.info('Cleared guild commands');
+    logger.info("Cleared guild commands");
 
-    logger.info('Production mode: Registering global commands...');
+    logger.info("Production mode: Registering global commands...");
     await api.put(Routes.applicationCommands(Config.CLIENT_ID), { body: data });
     logger.info(`Successfully registered ${data.length} global commands`);
   }

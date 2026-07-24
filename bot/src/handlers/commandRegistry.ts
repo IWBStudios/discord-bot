@@ -1,8 +1,8 @@
-import fs from 'node:fs';
-import path from 'node:path';
-import { fileURLToPath, pathToFileURL } from 'node:url';
-import type { Command } from '../types/BotCommand.js';
-import logger from '../utils/logger.js';
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath, pathToFileURL } from "node:url";
+import type { Command } from "../types/BotCommand.js";
+import logger from "../utils/logger.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export const commands = new Map<string, Command>();
@@ -21,17 +21,17 @@ async function loadCommands(directory: string, isRoot = true): Promise<number> {
 
     const categoryName = file;
     const categoryPath = fullPath;
-    const files = fs.readdirSync(categoryPath).filter((f) => f.endsWith('.js') || f.endsWith('.ts'));
+    const files = fs.readdirSync(categoryPath).filter((f) => f.endsWith(".js") || f.endsWith(".ts"));
 
     for (const commandFile of files) {
-      if (commandFile === 'index.ts' || commandFile === 'index.js') continue;
+      if (commandFile === "index.ts" || commandFile === "index.js") continue;
 
       const commandPath = path.join(categoryPath, commandFile);
       const commandModule = await import(pathToFileURL(commandPath).href);
 
       const command: Command = commandModule.default?.default ?? commandModule.default;
 
-      if (!command.data || typeof command.run !== 'function') {
+      if (!command.data || typeof command.run !== "function") {
         logger.error(`[SKIP] ${commandFile}: invalid command export`);
         continue;
       }
@@ -51,10 +51,10 @@ async function loadCommands(directory: string, isRoot = true): Promise<number> {
     logger.debug(
       `Loaded commands: ${Array.from(commands.entries())
         .map(([name, cmd]) => `${name} (${cmd.category})`)
-        .join(', ')}`
+        .join(", ")}`,
     );
   }
   return commandCount;
 }
 
-loadCommands(path.join(__dirname, '../commands'));
+loadCommands(path.join(__dirname, "../commands"));

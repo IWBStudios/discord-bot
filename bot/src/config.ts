@@ -1,15 +1,15 @@
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
 dotenv.config();
 
 const envVars = {
-  NODE_ENV: process.env.NODE_ENV || 'development',
+  NODE_ENV: process.env.NODE_ENV || "development",
   CLIENT_ID: process.env.CLIENT_ID,
   GUILD_ID: process.env.GUILD_ID,
   DISCORD_TOKEN: process.env.DISCORD_TOKEN,
   ACTION_LOG_CHANNEL: process.env.ACTION_LOG_CHANNEL,
   DB_USER: process.env.DB_USER,
   DB_PASSWORD: process.env.DB_PASSWORD,
-  DB_HOST: process.env.DB_HOST ?? 'localhost',
+  DB_HOST: process.env.DB_HOST ?? "localhost",
   DB_PORT: Number(process.env.DB_PORT ?? 5432),
   DB_NAME: process.env.DB_NAME,
 };
@@ -19,7 +19,7 @@ const missingVars = Object.entries(envVars)
   .map(([key]) => key);
 
 if (missingVars.length > 0) {
-  throw new Error(`Missing environment variables: ${missingVars.join(', ')}`);
+  throw new Error(`Missing environment variables: ${missingVars.join(", ")}`);
 }
 
 interface Env {

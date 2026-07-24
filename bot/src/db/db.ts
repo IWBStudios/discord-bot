@@ -1,6 +1,6 @@
-import { Pool } from 'pg';
-import Config from '../config.js';
-import logger from '../utils/logger.js';
+import { Pool } from "pg";
+import Config from "../config.js";
+import logger from "../utils/logger.js";
 
 export const db = new Pool({
   host: Config.DB_HOST,
@@ -11,6 +11,6 @@ export const db = new Pool({
   max: 10,
 });
 
-db.on('error', (err) => {
-  logger.error(err, 'Unexpected PostgreSQL pool error');
+db.on("error", (err) => {
+  logger.error(err, "Unexpected PostgreSQL pool error");
 });
