@@ -1,4 +1,5 @@
-import { REST, RESTPostAPIChatInputApplicationCommandsJSONBody, Routes } from 'discord.js';
+import { REST, Routes } from 'discord.js';
+import type { RESTPostAPIChatInputApplicationCommandsJSONBody } from 'discord.js';
 import Config from '../config.js';
 import { commands } from '../handlers/commandRegistry.js';
 import logger from './logger.js';

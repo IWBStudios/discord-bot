@@ -1,4 +1,5 @@
-import pino, { LogFn, Logger } from 'pino';
+import pino from 'pino';
+import type { LogFn, Logger } from 'pino';
 
 function logMethod(this: Logger, args: Parameters<LogFn>, method: LogFn) {
   if (args.length === 2) {

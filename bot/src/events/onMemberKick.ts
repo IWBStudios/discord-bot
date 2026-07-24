@@ -1,4 +1,5 @@
-import { AuditLogEvent, EmbedBuilder, Guild, GuildAuditLogsEntry, PartialUser, TextChannel, User } from 'discord.js';
+import { AuditLogEvent, EmbedBuilder, Guild, GuildAuditLogsEntry, TextChannel, User } from 'discord.js';
+import type { PartialUser } from 'discord.js';
 import Config from '../config.js';
 import { db } from '../db/db.js';
 import type { BotEvent } from '../types/BotEvent.js';

@@ -8,7 +8,7 @@ import {
 } from 'discord.js';
 import Config from '../../config.js';
 import { db } from '../../db/db.js';
-import { Command } from '../../types/BotCommand.js';
+import type { Command } from '../../types/BotCommand.js';
 import logger from '../../utils/logger.js';
 
 const command: Command = {

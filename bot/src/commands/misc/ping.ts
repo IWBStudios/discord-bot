@@ -1,5 +1,5 @@
 import { SlashCommandBuilder } from 'discord.js';
-import { Command } from '../../types/BotCommand.js';
+import type { Command } from '../../types/BotCommand.js';
 
 const command: Command = {
   data: new SlashCommandBuilder().setName('ping').setDescription('Replies with Pong!'),
